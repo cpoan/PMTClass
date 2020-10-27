@@ -25,7 +25,7 @@ PMTClass::PMTClass(string filename,vector<int> pmtName,vector<int> pmtHV){
     while(!dataOutput.eof()){
         // Read data
         dataOutput>>str_data;
-        //cout<<str_data<<"\n";
+        cout<<str_data<<"\n";
         
         // Judge data 
         if(str_data[1]!='0'&&str_data[1]!='8')
@@ -45,7 +45,7 @@ PMTClass::PMTClass(string filename,vector<int> pmtName,vector<int> pmtHV){
         int RG = int_ChannelRG%2;
 
         int Channel = int_ChannelRG/2 + (strtol(str_ChannelRG[0].c_str(),NULL,16)%2)*4;
-        //cout << "RG = " << RG << ",Channel = " << Channel << ", Charges = " << charges << "\n";
+        cout << "RG = " << RG << ",Channel = " << Channel << ", Charges = " << charges << "\n";
 
         // Filling histograms based on channel and HG/LG
         if(RG==0)

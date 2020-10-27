@@ -1,8 +1,7 @@
 #include "PMTClass.C"
 #include "FitFunction.C"
-
 void example_01(){
-    gStyle->SetOptStat(0);
+    //gStyle->SetOptStat(0);
     //gStyle->SetOptFit(1);
 
     vector<int> pmtName{0,1,74548,3,4,5,6,7};
@@ -11,7 +10,7 @@ void example_01(){
 
     TCanvas* c = new TCanvas("c","c",3200,900);
     c->Divide(2,1);
-    TLegend* lg = new TLegend(0.65,0.4,0.9,0.9);
+    TLegend* lg = new TLegend(0.7,0.6,0.9,0.9);
     for(int ch = 0;ch<8;ch++){
         data1.LG_charge_hists[ch]->SetLineColor(ch+1);
         data1.HG_charge_hists[ch]->SetLineColor(ch+1);

@@ -1,5 +1,3 @@
-all:main
-
 main:
-	g++ -std=c++11 -o a.out main.cc PMTClass.C -lEG `root-config --cflags` `root-config --libs` -lTreePlayer
+	g++ -std=c++11 -o testpmt main.cc PMTClass.C `root-config --cflags` `root-config --libs`
 

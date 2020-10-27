@@ -1,3 +1,6 @@
+#ifndef MY_PMTClass 
+#define MY_PMTClass
+
 #include <vector>
 #include <string>
 
@@ -13,5 +16,7 @@ class PMTClass {
         vector<TH1D*> HG_charge_hists;
 
         PMTClass(string filename, vector<int> pmtname, vector<int> pmtHV);
- //       ~PMTClass();
+        ~PMTClass();
 };
+
+#endif

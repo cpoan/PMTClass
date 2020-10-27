@@ -23,15 +23,43 @@ PMTClass::PMTClass(string filename,vector<int> pmtName,vector<int> pmtHV){
     ifstream dataOutput(filename.c_str());
     string str_data;
     while(!dataOutput.eof()){
+        // Read data
         dataOutput>>str_data;
-        cout<<str_data<<"\n";
+        //cout<<str_data<<"\n";
+        
+        // Judge data 
+        if(str_data[1]!='0'&&str_data[1]!='8')
+            continue;
+
+        // Charges calculation
+        int charges  = strtol(&(str_data[5]),NULL,16);
+
+        // HG or LG judgement, channel judgement
+        string str_ChannelRG[2];
+        str_ChannelRG[1]+=str_data[3];
+        str_ChannelRG[0]+=str_data[2];
+
+        int int_ChannelRG = strtol(str_ChannelRG[1].c_str(),NULL,16);
+        int_ChannelRG/=2;
+
+        int RG = int_ChannelRG%2;
+        cout << "RG = " << RG << ", ";
+
+        int Channel = int_ChannelRG/2 + (strtol(str_ChannelRG[0].c_str(),NULL,16)%2)*4;
+        cout << "Channel = " << Channel << ", Charges = " << charges << "\n";
+
+        // Filling histograms based on channel and HG/LG
+        if(RG==0)
+            HG_charge_hists[Channel]->Fill(charges);
+        else
+            LG_charge_hists[Channel]->Fill(charges);
     }
     
 }
 
-//~PMTClass(){
-//    for(int ch = 0;ch<8;ch++){
-//        delete this.LG_charge_hists[ch];
-//        delete this.HG_charge_hists[ch];
-//    }
-//}
+PMTClass::~PMTClass(){
+    for(int ch = 0;ch<8;ch++){
+//        delete this->LG_charge_hists[ch];
+//        delete this->HG_charge_hists[ch];
+    }
+}

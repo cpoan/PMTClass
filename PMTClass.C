@@ -16,8 +16,8 @@ PMTClass::PMTClass(string filename,vector<int> pmtName,vector<int> pmtHV){
     this->HG_charge_hists.resize(8); 
 
     for(int ch = 0;ch<8;ch++){
-        this->LG_charge_hists[ch] = new TH1D(TString::Format("LG_CH%i",ch),TString::Format("LG CH%i PMT%i HV%i",ch,pmtName[ch],pmtHV[ch]),1000,0,1000);
-        this->HG_charge_hists[ch] = new TH1D(TString::Format("HG_CH%i",ch),TString::Format("HG CH%i PMT%i HV%i",ch,pmtName[ch],pmtHV[ch]),1000,0,1000);
+        this->LG_charge_hists[ch] = new TH1D(TString::Format("LG_CH%i_PMT%i_HV%i",ch,pmtName[ch],pmtHV[ch]),TString::Format("LG CH%i PMT%i HV%i;Charges[QDC unit];Counts",ch,pmtName[ch],pmtHV[ch]),1000,0,1000);
+        this->HG_charge_hists[ch] = new TH1D(TString::Format("HG_CH%i_PMT%i_HV%i",ch,pmtName[ch],pmtHV[ch]),TString::Format("HG CH%i PMT%i HV%i;Charges[QDC unit];Counts",ch,pmtName[ch],pmtHV[ch]),1000,0,1000);
     }
 
     ifstream dataOutput(filename.c_str());
@@ -43,10 +43,9 @@ PMTClass::PMTClass(string filename,vector<int> pmtName,vector<int> pmtHV){
         int_ChannelRG/=2;
 
         int RG = int_ChannelRG%2;
-        cout << "RG = " << RG << ", ";
 
         int Channel = int_ChannelRG/2 + (strtol(str_ChannelRG[0].c_str(),NULL,16)%2)*4;
-        cout << "Channel = " << Channel << ", Charges = " << charges << "\n";
+        //cout << "RG = " << RG << ",Channel = " << Channel << ", Charges = " << charges << "\n";
 
         // Filling histograms based on channel and HG/LG
         if(RG==0)
